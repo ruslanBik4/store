@@ -20,41 +20,41 @@ class Category
     // integer, link by primary key parent category
     private $parentId;
 
-    private $conn;
+    static private $conn;
 
     public function __construct($name, $parentId = 0)
     {
         $this->name = $name;
         $this->parentId = $parentId;
-        $this->conn = mysqli_connect();
+        self::$conn = mysqli_connect();
 
     }
 
-    static public function SelectAll()
+    static public function runSQL($sql)
     {
-        $sql = 'select * from category';
-
-        $result = mysqli_query( $this->conn, $sql );
+        $result = mysqli_query( self::$conn, $sql );
 
         return $result;
+    }
+    static public function SelectAll()
+    {
+        $sql = 'select * from category ';
+
+        return self::runSQL($sql);
 
     }
     public function fromID($id)
     {
         $sql = 'select * from category where id = ?';
 
-        mysqli_query( $this->conn, $sql, $id );
-
-        return $foundCategory;
+        return self::runSQL($sql);
     }
 
     public function fromName($name)
     {
         $sql = 'select * from category where name = ?';
 
-        $foundCategory = mysqli_query( $conn, $sql, $name );
-
-        return $foundCategory;
+        return self::runSQL($sql);
     }
 
     /**
@@ -81,9 +81,7 @@ class Category
             $separator = ' AND ';
         }
 
-        $foundCategory = mysqli_query( $this->conn, $sql );
-
-        return $foundCategory;
+        return self::runSQL($sql);
     }
 
     /**
