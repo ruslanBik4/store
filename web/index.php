@@ -22,6 +22,18 @@ switch ($arrPath[0]) {
         }
 
     default: // user controllers
+        switch ($arrPath[1])  {
+            case 'Category':
+
+
+                $categoryController = new categoryController($parameters);
+
+                $content = $categoryController->getResponce();
+
+
+
+        }
+
 
 }
 include '../views/pages/main/header.html';
