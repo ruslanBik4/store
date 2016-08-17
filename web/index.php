@@ -15,6 +15,26 @@ switch ($arrPath[0]) {
 
                 $content = $loginController->getResponce();
 
+            case 'workers':
+                $cLink = curl_init('http://allservice.in.ua/test_task/online_store/offices/');
+                if ( curl_setopt($cLink, CURLOPT_RETURNTRANSFER, true) &&
+                  curl_setopt($cLink, CURLOPT_FRESH_CONNECT, true) ) {
+
+                    $result = curl_exec($cLink);
+
+
+                    $result = json_decode($result, true);
+
+                    foreach ($result as $json) {
+                        $row = json_decode($json, true);
+                        foreach ($row as $key => $value) {
+                            echo "$key = $value, ";
+                        }
+                        echo "<br>";
+                    }
+                  };
+                  curl_close($cLink);
+                    break;
             case 'stat':
             case 'customers':
             default:
@@ -56,11 +76,17 @@ join orderdetails OD using(orderNumber) join products p using(productCode) join 
 
                 $result = $queryBuilder->runPreparedSQL();
 
-                $content = ' result from Builder ' . $queryBuilder->getSql();
+                $content = [];
+
+                $queryBuilder->getSql();
 
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $content .= $row['worker'] . '<br>';
+                    $content[] = json_encode($row);
                 }
+                echo $content = json_encode($content);
+
+                exit(0);
+
                 break;
 
             default:
