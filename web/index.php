@@ -57,22 +57,18 @@ switch ($arrPath[0]) {
 
     default: // user controllers
         switch ($arrPath[0])  {
-            case 'category':
+            case 'category':// ссылки вида {имя_сайта}/category/{$command}
 
-
-                $categoryController = new categoryController();
-
+                $categoryController = new categoryController($arrPath[1]); // $command
                 $content = $categoryController->getResponce();
 
                 break;
 
-            case 'product':
-                 $product = new Repository('Category');
+            case 'product':// ссылки вида {имя_сайта}/product/{$command}
 
-                $content = serialize($product);
+                $controller = new productController($arrPath[1]);
+                $content = $controller->getResponce();
 
-                 echo $content;
-                 exit(0);
                 break;
 
             case 'offices':
