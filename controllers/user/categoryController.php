@@ -10,6 +10,7 @@
 class categoryController
 {
     private $responce;
+    private $repository;
 
 
     public function __construct()

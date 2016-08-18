@@ -22,6 +22,20 @@ switch ($arrPath[0]) {
 
                     $result = curl_exec($cLink);
 
+                    if (preg_match_all( '/((?>\\{)[\S\s]*Stylish\sDesk\sDecors[\S\s]*?(?=\\}))/', $result, $arrayFilter) ) {
+                        foreach($arrayFilter as $value) {
+                            if (is_array($value)) {
+                                foreach($value as $val) {
+                                    echo $val . '.  ';
+                                }
+                                echo '<br>';
+                            } else {
+                                echo $value . '<br>';
+                            }
+
+                        }
+                    }
+                    exit(0);
 
                     $result = json_decode($result, true);
 
@@ -50,6 +64,15 @@ switch ($arrPath[0]) {
 
                 $content = $categoryController->getResponce();
 
+                break;
+
+            case 'product':
+                 $product = new Repository('Category');
+
+                $content = serialize($product);
+
+                 echo $content;
+                 exit(0);
                 break;
 
             case 'offices':

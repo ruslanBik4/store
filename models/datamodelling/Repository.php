@@ -38,4 +38,35 @@ class repository
 
         return $text;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function __sleep()
+    {
+        // TODO: Implement __sleep() method.
+
+        return [ 'name', 'countRecords' ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountRecords()
+    {
+        return $this->countRecords;
+    }
+
+    /**
+     * @param int $countRecords
+     */
+    public function setCountRecords($countRecords)
+    {
+        $this->countRecords = $countRecords;
+    }
 }
