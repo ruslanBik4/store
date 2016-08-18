@@ -13,10 +13,26 @@ class categoryController
     private $repository;
 
 
-    public function __construct()
+    public function __construct($command)
     {
         $this->repository = new Repository('Category');
-        $this->responce   = $this->repository->getList( ['name'] );
+        switch ($command) {
+            case 'parent':
+                $this->responce   = $this->repository->getList( ['name'] );
+                break;
+            case 'child=v_menu':
+                $this->responce   = '';
+                foreach($this->repository as $key => $value ) {
+                    $this->responce   .= '<a href="category/id=$key"> $value </a>';
+                }
+                break;
+            case 'child=view':
+                $this->responce   = $this->repository->getList( ['name'] );
+                break;
+            case 'id={}':
+
+
+        }
     }
 
     public function getResponce()

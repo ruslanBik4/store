@@ -26,12 +26,12 @@ class Category
     {
         $this->name = $name;
         $this->parentId = $parentId;
-        self::$conn = mysqli_connect();
 
     }
 
     static public function runSQL($sql)
     {
+        self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
         $result = mysqli_query( self::$conn, $sql );
 
         return $result;
