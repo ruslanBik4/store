@@ -11,6 +11,8 @@ class Product
     private $name;
     private $price;
     private $parentID;
+    private $action = false;
+    private $new = false;
 
     static public function runSQL($sql)
     {
@@ -19,12 +21,25 @@ class Product
 
         return $result;
     }
-    static public function SelectAll()
+    static public function SelectAction()
     {
-        $sql = 'select * from category ';
+        $sql = 'select * from products where action = 1';
 
         return self::runSQL($sql);
 
+    }
+    static public function SelectNew()
+    {
+        $sql = 'select * from products where new = 1 ';
+
+        return self::runSQL($sql);
+
+    }
+    static public function SelectAll()
+    {
+        $sql = 'select * from products ';
+
+        return self::runSQL($sql);
     }
 
 }

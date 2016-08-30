@@ -23,11 +23,13 @@ class categoryController
             case 'child=v_menu':
                 $this->responce   = '';
                 foreach($this->repository as $key => $value ) {
-                    $this->responce   .= '<a href="category/id=$key"> $value </a>';
+                    $this->responce   .= '<li><a href="category/id=$key"> $value </a> </li>';
                 }
                 break;
             case 'child=view':
-                $this->responce   = $this->repository->getList( ['name'] );
+                foreach($this->repository as $key => $value ) {
+                    $this->responce   .= '<div><a href="category/id=$key"> $value </a></div>';
+                }
                 break;
             case 'id={}':
 

@@ -19,7 +19,22 @@ class repository implements Iterator
     public function __construct($name)
     {
         $this->name = $name;
-        $this->tableRes = $name::SelectAll();
+    }
+    public function SelectAll()
+    {
+        $this->tableRes = $this->name::SelectAll();
+
+    }
+
+    public function SelectAction()
+    {
+        $this->tableRes = $this->name::SelectAction();
+
+    }
+    public function SelectNew()
+    {
+        $this->tableRes = $this->name::SelectNew();
+
     }
 
     public function getList(array $names)
