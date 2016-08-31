@@ -19,7 +19,7 @@ class Category
     private $name;
     // integer, link by primary key parent category
     private $parentId;
-
+    // handle соединения с БД
     static private $conn;
 
     public function __construct($name, $parentId = 0)
@@ -29,6 +29,26 @@ class Category
 
     }
 
+    /**
+     * Определяем число записей в таблице
+     * @return integer
+     */
+    static public function CountRecord()
+    {
+        $sql = 'select count(*) from category ';
+
+        $result = self::runSQL($sql);
+
+        $row = mysqli_fetch_assoc($result);
+
+        return $row[0];
+
+    }
+    /**
+     * выполнение запроса к БД через интерфейс mysqli
+     * @param $sql
+     * @return bool|mysqli_result
+     */
     static public function runSQL($sql)
     {
         self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
@@ -36,28 +56,43 @@ class Category
 
         return $result;
     }
+    /**
+     * получение всех записей таблицы
+     * @return bool|mysqli_result
+     */
     static public function SelectAll()
     {
-        $sql = 'select * from category ';
+        $sql = "select key_category as 'id', name from category ";
 
         return self::runSQL($sql);
 
     }
+    /**
+     * получение одной записи таблицы по ее $id
+     * @param $id integer
+     * @return bool|mysqli_result
+     */
     public function fromID($id)
     {
-        $sql = 'select * from category where id = ?';
-
-        return self::runSQL($sql);
-    }
-
-    public function fromName($name)
-    {
-        $sql = 'select * from category where name = ?';
+        $sql = "select * from category where id = $id";
 
         return self::runSQL($sql);
     }
 
     /**
+     * получение одной записи таблицы по ее полю $name
+     * @param $name string
+     * @return bool|mysqli_result
+     */
+    public function fromName($name)
+    {
+        $sql = "select * from category where name = $name";
+
+        return self::runSQL($sql);
+    }
+
+    /**
+     * отбор записей по условиям в массиве $arrSearch
      *  fromBY( [ 'name' => 'Dmitro', 'address' => [ 'ot' => 'Bruclin', 'do' => 'Moskau' ] ])
      * @param array $arrSearch
      * @return bool|mysqli_result

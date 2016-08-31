@@ -13,6 +13,8 @@ class Product
     private $parentID;
     private $action = false;
     private $new = false;
+//* @property mysqli conn
+    static private $conn = null;
 
     static public function runSQL($sql)
     {

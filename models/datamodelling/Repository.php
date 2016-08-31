@@ -12,31 +12,55 @@ class repository implements Iterator
     private $name;
     // количество записей
     private $countRecords = -1;
-
+    // здесь будем содержать результат запроса
     private $tableRes;
+    // для одной записи
     private $row = null;
 
     public function __construct($name)
     {
         $this->name = $name;
+        $this->countRecords = $name::CountRecord();
     }
+
+    /**
+     * получит запись по ее $id
+     * @param $id
+     */
+    public function fromID($id)
+    {
+        $this->getRecords("fromID($id)");
+    }
+
+    /**
+     * получит записи всей таблицы
+     */
     public function SelectAll()
     {
-        $this->tableRes = $this->name::SelectAll();
-
+        $this->getRecords('SelectAll');
     }
 
+    /**
+     * получение акционных товаров
+     */
     public function SelectAction()
     {
-        $this->tableRes = $this->name::SelectAction();
-
+        $this->getRecords('SelectAction');
     }
+
+    /**
+     * получение новинок
+     */
     public function SelectNew()
     {
-        $this->tableRes = $this->name::SelectNew();
-
+        $this->getRecords('SelectNew');
     }
 
+    /**
+     *  получить предствление набора данных типа Лист
+     * @param array $names
+     * @return string
+     */
     public function getList(array $names)
     {
         $text = '';
@@ -53,6 +77,17 @@ class repository implements Iterator
         }
 
         return $text;
+    }
+
+    /**
+     * получение записей
+     * метод не проверяет наличие метода, с помощью которого извлекают записи
+     * @param $method
+     */
+    private function getRecords($method)
+    {
+        $name = $this->name;
+        $this->tableRes = $name::$method();
     }
 
     /**
@@ -76,14 +111,6 @@ class repository implements Iterator
     public function getCountRecords()
     {
         return $this->countRecords;
-    }
-
-    /**
-     * @param int $countRecords
-     */
-    public function setCountRecords($countRecords)
-    {
-        $this->countRecords = $countRecords;
     }
 
     /**
@@ -132,7 +159,7 @@ class repository implements Iterator
     public function valid()
     {
         // TODO: Implement valid() method.
-        return $this->row;
+        return $this->row ? true : false;
     }
 
     /**
@@ -144,5 +171,6 @@ class repository implements Iterator
     public function rewind()
     {
         // TODO: Implement rewind() method.
+        $this->next();
     }
 }
