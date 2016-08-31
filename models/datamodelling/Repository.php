@@ -17,6 +17,10 @@ class repository implements Iterator
     // для одной записи
     private $row = null;
 
+    /**
+     * repository constructor.
+     * @param $name Entity (Category, Product)
+     */
     public function __construct($name)
     {
         $this->name = $name;
@@ -137,7 +141,7 @@ class repository implements Iterator
     public function next()
     {
         // TODO: Implement next() method.
-        $this->row=mysqli_fetch_assoc($this->tableRes);
+        $this->row = mysqli_fetch_assoc($this->tableRes);
     }
 
     /**
@@ -174,6 +178,7 @@ class repository implements Iterator
     public function rewind()
     {
         // TODO: Implement rewind() method.
+
         $this->next();
     }
 
