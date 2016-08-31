@@ -6,7 +6,7 @@
  * Date: 12.08.16
  * Time: 19:11
  */
-class repository implements Iterator
+class repository implements Iterator, ArrayAccess
 {
     // имя таблицы, с которой работаем (либо, представления)
     private $name;
@@ -16,6 +16,8 @@ class repository implements Iterator
     private $tableRes;
     // для одной записи
     private $row = null;
+    private $rowArrayAccess;
+    private $arrIDs = [];
 
     /**
      * repository constructor.
@@ -25,6 +27,8 @@ class repository implements Iterator
     {
         $this->name = $name;
         $this->countRecords = $name::CountRecord();
+
+        $this->arrIDs = $name::getIDs();
     }
 
     /**
@@ -44,7 +48,7 @@ class repository implements Iterator
      */
     public function SelectAll()
     {
-        $this->getRecords('SelectAll');
+        $this->tableRes = $this->getRecords('SelectAll');
     }
 
     /**
@@ -52,7 +56,7 @@ class repository implements Iterator
      */
     public function SelectAction()
     {
-        $this->getRecords('SelectAction');
+        $this->tableRes = $this->getRecords('SelectAction');
     }
 
     /**
@@ -60,7 +64,7 @@ class repository implements Iterator
      */
     public function SelectNew()
     {
-        $this->getRecords('SelectNew');
+        $this->tableRes = $this->getRecords('SelectNew');
     }
 
     /**
@@ -90,11 +94,12 @@ class repository implements Iterator
      * получение записей
      * метод не проверяет наличие метода, с помощью которого извлекают записи
      * @param $method
+     * @return bool|mysqli_result
      */
     private function getRecords($method)
     {
         $name = $this->name;
-        $this->tableRes = $name::$method();
+        return $name::$method();
     }
 
     /**
@@ -188,5 +193,77 @@ class repository implements Iterator
     public function getRow()
     {
         return $this->row;
+    }
+
+    /**
+     * Whether a offset exists
+     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+     * @param mixed $offset <p>
+     * An offset to check for.
+     * </p>
+     * @return boolean true on success or false on failure.
+     * </p>
+     * <p>
+     * The return value will be casted to boolean if non-boolean was returned.
+     * @since 5.0.0
+     */
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+        return isset( $this->arrIDs[$offset] );
+    }
+
+    /**
+     * Offset to retrieve
+     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     * The offset to retrieve.
+     * </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+        $name = $this->name;
+
+        $result = mysqli_fetch_assoc( $name::fromId( $this->arrIDs[$offset] ) );
+
+        return $result;
+    }
+
+    /**
+     * Offset to set
+     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * @param mixed $offset <p>
+     * The offset to assign the value to.
+     * </p>
+     * @param mixed $value <p>
+     * The value to set.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+
+    }
+
+    /**
+     * Offset to unset
+     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @param mixed $offset <p>
+     * The offset to unset.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
+
+        unset( $this->arrIDs[$offset] );
+
     }
 }

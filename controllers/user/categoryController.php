@@ -38,10 +38,12 @@ class categoryController
                 }
                 break;
             case 'id':
-                $this->repository->fromID($arrCommand[1]);
                 $this->responce   = 'Показ одной записи №' . $arrCommand[1];
-                $this->repository->next();
-                $value = $this->repository->getRow();
+
+                $value = $this->repository[$arrCommand[1]];
+
+                $this->repository[$arrCommand[1]] = 0;
+
                 $this->responce .= "<div> {$value['name']} </div>";
 
                 break;

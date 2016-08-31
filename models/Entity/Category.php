@@ -56,6 +56,25 @@ class Category
 
         return $result;
     }
+
+    /**
+     * @return array|null
+     */
+    static public function getIDs()
+    {
+        $sql = "select key_category from category ";
+        $result = self::runSQL($sql);
+
+        $arrResult = [];
+
+        while( $row = mysqli_fetch_array($result))
+        {
+            $arrResult[] = $row[0];
+        }
+
+        return $arrResult;
+
+    }
     /**
      * получение всех записей таблицы
      * @return bool|mysqli_result
