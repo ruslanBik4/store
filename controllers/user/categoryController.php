@@ -16,28 +16,38 @@ class categoryController
     public function __construct($command)
     {
         $this->repository = new Repository('Category');
-        $this->repository->SelectAll();
 
-        switch ($command) {
+        $arrCommand = explode('=', $command );
+
+        switch ($arrCommand[0]) {
             case 'parent':
+                $this->repository->SelectAll();
                 $this->responce   = $this->repository->getList( ['name'] );
                 break;
-            case 'child=v_menu':
+            case 'child':
+                $this->repository->SelectAll();
                 $this->responce   = '';
                 foreach($this->repository as $key => $value ) {
-                    $this->responce   .= "<li><a href='category/id=$key'> {$value['name']} </a> </li>";
+                    if ($arrCommand[1] == 'v_menu') {
+                        $this->responce .= "<li><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a> </li>";
+
+                    } else { //view
+                        $this->responce .= "<div><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a></div>";
+
+                    }
                 }
                 break;
-            case 'child=view':
-                $this->responce   = 'Перечень дочерних категорий типа view';
-                foreach($this->repository as $key => $value ) {
-                        $this->responce .= "<div><a href='category/id=1'> {$value['name']} </a></div>";
-                }
+            case 'id':
+                $this->repository->fromID($arrCommand[1]);
+                $this->responce   = 'Показ одной записи №' . $arrCommand[1];
+                $this->repository->next();
+                $value = $this->repository->getRow();
+                $this->responce .= "<div> {$value['name']} </div>";
+
                 break;
-            case 'id={}':
 
             default:
-            $this->responce = 'Default from Category';
+                $this->responce = 'Default from Category';
         }
     }
 

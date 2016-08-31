@@ -74,7 +74,7 @@ class Category
      */
     public function fromID($id)
     {
-        $sql = "select * from category where id = $id";
+        $sql = "select  key_category as 'id', name from category where key_category = '$id'";
 
         return self::runSQL($sql);
     }

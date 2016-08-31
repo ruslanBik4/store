@@ -25,11 +25,14 @@ class repository implements Iterator
 
     /**
      * получит запись по ее $id
+     * $name Category
      * @param $id
      */
     public function fromID($id)
     {
-        $this->getRecords("fromID($id)");
+        $name = $this->name;
+        $this->tableRes = $name::fromID($id);
+//        $this->getRecords("fromID($id)");
     }
 
     /**
@@ -172,5 +175,13 @@ class repository implements Iterator
     {
         // TODO: Implement rewind() method.
         $this->next();
+    }
+
+    /**
+     * @return null
+     */
+    public function getRow()
+    {
+        return $this->row;
     }
 }
