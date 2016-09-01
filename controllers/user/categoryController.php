@@ -27,24 +27,28 @@ class categoryController
             case 'child':
                 $this->repository->SelectAll();
                 $this->responce   = '';
+                $view = new categoryView($arrCommand[1]);
+
                 foreach($this->repository as $key => $value ) {
-                    if ($arrCommand[1] == 'v_menu') {
-                        $this->responce .= "<li><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a> </li>";
-
-                    } else { //view
-                        $this->responce .= "<div><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a></div>";
-
-                    }
+                        $this->responce .= $view->Render($key, $value);
                 }
                 break;
             case 'id':
+
+                if (  !( (integer)$arrCommand[1] > 0) )  {
+                    $this->responce   = "Значение номера категории должно быть положительным числом!"  . $arrCommand[1];
+                    return;
+                }
+
                 $this->responce   = 'Показ одной записи №' . $arrCommand[1];
 
                 $value = $this->repository[$arrCommand[1]];
 
                 $this->repository[$arrCommand[1]] = 0;
 
-                $this->responce .= "<div> {$value['name']} </div>";
+                $view = new categoryView('id');
+
+                $this->responce .= $view->Render( $arrCommand[1], $value);
 
                 break;
 

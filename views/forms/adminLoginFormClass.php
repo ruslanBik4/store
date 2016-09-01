@@ -8,7 +8,7 @@
  */
 class adminLoginFormClass
 {
-   publick function Render() {
-       return file_get_contents( __DIR__ . '../templates/adminLoginForm.html')
-}
+   public function Render() {
+       return file_get_contents( __DIR__ . '../templates/adminLoginForm.html');
+ }
 }
