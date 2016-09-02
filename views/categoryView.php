@@ -24,7 +24,9 @@ class categoryView
             case 'v_menu':
                 return "<li><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a> </li>";
             case 'id':
-                return "<div> {$value['name']} </div>";
+                return "<div> {$value['name']} </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
+            case 'parent':
+                return "<div> <a href='http://allservice.in.ua/test_task/online_store/category/child=view&parentId=$key'>  {$value['name']} </a> </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
             default:
                 return "<div> Неопредел вівод данніх </div>";
         }

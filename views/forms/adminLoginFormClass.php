@@ -9,6 +9,6 @@
 class adminLoginFormClass
 {
    public function Render() {
-       return file_get_contents( __DIR__ . '../templates/adminLoginForm.html');
+       return file_get_contents( __DIR__ . '/../templates/adminLoginForm.html');
  }
 }

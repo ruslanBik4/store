@@ -17,15 +17,19 @@ class categoryController
     {
         $this->repository = new Repository('Category');
 
-        $arrCommand = explode('=', $command );
+        $arrCommands = explode('&', $command );
+        $arrCommand = explode('=', $arrCommands[0] );
 
         switch ($arrCommand[0]) {
-            case 'parent':
-                $this->repository->SelectAll();
-                $this->responce   = $this->repository->getList( ['name'] );
-                break;
             case 'child':
-                $this->repository->SelectAll();
+                if ($arrCommands[0]) {
+                    $arr = $arrCommands[1];
+                    $this->repository->runCommand('fromParent()');
+
+                } else {
+                    $this->repository->SelectAll();
+
+                }
                 $this->responce   = '';
                 $view = new categoryView($arrCommand[1]);
 
@@ -52,8 +56,16 @@ class categoryController
 
                 break;
 
+            case 'parent':
             default:
-                $this->responce = 'Default from Category';
+                $this->repository->runCommand('SelectParent');
+                $this->responce   = '';
+                $view = new categoryView('parent');
+
+                foreach($this->repository as $key => $value ) {
+                    $this->responce .= $view->Render($key, $value);
+                }
+                break;
         }
     }
 

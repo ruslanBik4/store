@@ -89,6 +89,10 @@ class repository implements Iterator, ArrayAccess
 
         return $text;
     }
+    public function runCommand($command)
+    {
+        $this->tableRes = $this->getRecords($command);
+    }
 
     /**
      * получение записей

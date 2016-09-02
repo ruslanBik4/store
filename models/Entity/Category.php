@@ -87,6 +87,17 @@ class Category
 
     }
     /**
+     * получение главны категорий
+     * @return bool|mysqli_result
+     */
+    static public function SelectParent()
+    {
+        $sql = "select key_category as 'id', name from category where key_parent = 0 order by name";
+
+        return self::runSQL($sql);
+
+    }
+    /**
      * получение одной записи таблицы по ее $id
      * @param $id integer
      * @return bool|mysqli_result
