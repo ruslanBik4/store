@@ -44,4 +44,9 @@ class Product
         return self::runSQL($sql);
     }
 
+    static public function fromId($id)
+    {
+        return "select * from products where id = $id";
+    }
+
 }

@@ -8,6 +8,7 @@
  */
 class repository implements Iterator, ArrayAccess
 {
+    private static $conn;
     // имя таблицы, с которой работаем (либо, представления)
     private $name;
     // количество записей
@@ -33,14 +34,13 @@ class repository implements Iterator, ArrayAccess
 
     /**
      * получит запись по ее $id
-     * $name Category
+     * $name Category | Product
      * @param $id
      */
     public function fromID($id)
     {
         $name = $this->name;
-        $this->tableRes = $name::fromID($id);
-//        $this->getRecords("fromID($id)");
+        $this->tableRes = $this->runSQL( $name::fromID($id) );
     }
 
     /**
@@ -106,6 +106,13 @@ class repository implements Iterator, ArrayAccess
         return $name::$method();
     }
 
+    private function runSQL($sql)
+    {
+        self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
+        $result = mysqli_query( self::$conn, $sql );
+
+        return $result;
+    }
     /**
      * @return mixed
      */

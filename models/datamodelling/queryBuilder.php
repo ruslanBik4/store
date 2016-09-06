@@ -35,7 +35,7 @@ class queryBuilder
         }
     }
 
-    public function Where(array $condition)
+    public function Where(array $condition) // array вида { fieldName :  условиеОтбора ,  2 : {fieldName :  условиеОтбора} }
     {
         $this->where = $separator = '';
 

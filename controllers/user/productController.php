@@ -15,7 +15,9 @@ class productController
     public function __construct($command)
     {
         $this->repository = new Repository('Product');
-        switch ($command) {
+        $arrCommand = explode('=', $command );
+
+        switch ($arrCommand[0]) {
             case 'action':
                 $this->repository->SelectAction();
                 break;
@@ -24,6 +26,14 @@ class productController
                 break;
             case 'new':
                 $this->repository->SelectNew();
+                break;
+            case 'id':
+                if (  !( (integer)$arrCommand[1] > 0) )  {
+                    $this->responce   = "Значение номера категории должно быть положительным числом!"  . $arrCommand[1];
+                    return;
+                }
+                
+                $this->repository->fromID($param);
                 break;
         }
 
