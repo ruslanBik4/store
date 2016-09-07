@@ -9,6 +9,9 @@
 class adminLoginFormClass
 {
    public function Render() {
-       return file_get_contents( __DIR__ . '/../templates/adminLoginForm.html');
+       $text =  file_get_contents( __DIR__ . '/../templates/adminLoginForm.html');
+
+       return preg_replace('/PATH_WWW/', PATH_WWW, $text) ;
+
  }
 }

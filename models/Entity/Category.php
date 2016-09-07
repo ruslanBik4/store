@@ -81,9 +81,7 @@ class Category
      */
     static public function SelectAll()
     {
-        $sql = "select key_category as 'id', name from category ";
-
-        return self::runSQL($sql);
+        return "select key_category as 'id', name from category ";
 
     }
     /**
@@ -92,9 +90,7 @@ class Category
      */
     static public function SelectParent()
     {
-        $sql = "select key_category as 'id', name from category where key_parent = 0 order by name";
-
-        return self::runSQL($sql);
+        return "select key_category as 'id', name from category where key_parent = 0 order by name";
 
     }
     /**
@@ -104,9 +100,7 @@ class Category
      */
     public function fromID($id)
     {
-        $sql = "select  key_category as 'id', name from category where key_category = '$id'";
-
-        return self::runSQL($sql);
+        return "select key_category as 'id', name from category where key_category = '$id'";
     }
 
     /**
@@ -116,9 +110,7 @@ class Category
      */
     public function fromName($name)
     {
-        $sql = "select * from category where name = $name";
-
-        return self::runSQL($sql);
+        return "select * from category where name = $name";
     }
 
     /**
@@ -146,7 +138,7 @@ class Category
             $separator = ' AND ';
         }
 
-        return self::runSQL($sql);
+        return $sql;
     }
 
     /**

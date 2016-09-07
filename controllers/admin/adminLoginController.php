@@ -15,7 +15,7 @@ class adminLoginController
     {
         switch ($parameters[0]) {
             case 'getform':  // path {site}/admin/signin/?getform
-                $this->responce = $this->getFormAction();
+                $this->responce =  $this->getFormAction();
                 break;
             default:
                 $this->responce = $this->signinAction();

@@ -1,6 +1,7 @@
 <?php
 
 require_once '../autoload.php';
+const PATH_WWW = '/test_task/online_store';
 
 $arrPath = explode('/', strtolower($_REQUEST['path']) );
 
@@ -9,11 +10,13 @@ switch ($arrPath[0]) {
         switch ($arrPath[1])  {
             case 'singin':              // ссылки вида {имя_сайта}/admin/singin/ (*)
 
-                $parameters = explode('?', $arrPath[2]) ? : [];
+                $parameters = [ $arrPath[2] ]; //explode('?', $arrPath[1]) ? : [];
 
                 $loginController = new adminLoginController($parameters);
 
                 $content = $loginController->getResponce();
+
+                break;
 
             case 'workers':
                 $cLink = curl_init('http://allservice.in.ua/test_task/online_store/offices/');
@@ -35,8 +38,6 @@ switch ($arrPath[0]) {
 
                         }
                     }
-                    exit(0);
-
                     $result = json_decode($result, true);
 
                     foreach ($result as $json) {
@@ -54,7 +55,7 @@ switch ($arrPath[0]) {
             default:
                 $content = implode('.', $arrPath);
         }
-
+ break;
     default: // user controllers
         switch ($arrPath[0])  {
             case 'category':// ссылки вида {имя_сайта}/category/{$command}

@@ -16,32 +16,18 @@ class Product
 //* @property mysqli conn
     static private $conn = null;
 
-    static public function runSQL($sql)
-    {
-        self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
-        $result = mysqli_query( self::$conn, $sql );
-
-        return $result;
-    }
     static public function SelectAction()
     {
-        $sql = 'select * from products where action = 1';
-
-        return self::runSQL($sql);
-
+        return 'select * from products where action = 1';
     }
     static public function SelectNew()
     {
-        $sql = 'select * from products where new = 1 ';
-
-        return self::runSQL($sql);
+        return 'select * from products where new = 1 ';
 
     }
     static public function SelectAll()
     {
-        $sql = 'select * from products ';
-
-        return self::runSQL($sql);
+        return 'select * from products ';
     }
 
     static public function fromId($id)

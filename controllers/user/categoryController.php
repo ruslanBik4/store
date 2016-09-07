@@ -22,9 +22,9 @@ class categoryController
 
         switch ($arrCommand[0]) {
             case 'child':
-                if ($arrCommands[0]) {
+                if ($arrCommands[1]) {
                     $arr = $arrCommands[1];
-                    $this->repository->runCommand('fromParent()');
+                    $this->repository->runCommand('fromParent');
 
                 } else {
                     $this->repository->SelectAll();
@@ -48,7 +48,7 @@ class categoryController
 
                 $value = $this->repository[$arrCommand[1]];
 
-                $this->repository[$arrCommand[1]] = 0;
+//                $this->repository[$arrCommand[1]] = 0;
 
                 $view = new categoryView('id');
 

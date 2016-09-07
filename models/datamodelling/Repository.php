@@ -11,7 +11,10 @@ class repository implements Iterator, ArrayAccess
     private static $conn;
     // имя таблицы, с которой работаем (либо, представления)
     private $name;
-    // количество записей
+    /**
+     * Определяем число записей в таблице
+     * @return integer
+     */
     private $countRecords = -1;
     // здесь будем содержать результат запроса
     private $tableRes;
@@ -27,7 +30,7 @@ class repository implements Iterator, ArrayAccess
     public function __construct($name)
     {
         $this->name = $name;
-        $this->countRecords = $name::CountRecord();
+        $this->countRecords = mysqli_fetch_array( $this->runSQL( "select count(*) from $name " ) )[0];
 
         $this->arrIDs = $name::getIDs();
     }
@@ -103,7 +106,7 @@ class repository implements Iterator, ArrayAccess
     private function getRecords($method)
     {
         $name = $this->name;
-        return $name::$method();
+        return $this->runSQL( $name::$method() );
     }
 
     private function runSQL($sql)

@@ -5,6 +5,8 @@ Options All -ExecCGI  +Includes +FollowSymLinks
 	RewriteBase /
 
 	#	и запрошенный путь соответствует пути к физическому файлу
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule (.*) web/index.php?path=$1  [L,QSA]
 
 </IfModule>

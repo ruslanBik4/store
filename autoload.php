@@ -12,7 +12,7 @@ function __autoload($className)
         'models/config',
         'models/Entity',
         'models/datamodelling',
-        'models/ui',
+        'models/admin',
         'views',
         'views/tables',
         'views/forms',

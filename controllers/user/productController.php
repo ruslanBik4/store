@@ -16,8 +16,9 @@ class productController
     {
         $this->repository = new Repository('Product');
         $arrCommand = explode('=', $command );
+        $command = $arrCommand[0];
 
-        switch ($arrCommand[0]) {
+        switch ($command) {
             case 'action':
                 $this->repository->SelectAction();
                 break;
@@ -32,8 +33,8 @@ class productController
                     $this->responce   = "Значение номера категории должно быть положительным числом!"  . $arrCommand[1];
                     return;
                 }
-                
-                $this->repository->fromID($param);
+
+                $this->repository->fromID( $arrCommand[1] );
                 break;
         }
 
