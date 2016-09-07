@@ -1,7 +1,7 @@
 <?php
 
 require_once '../autoload.php';
-const PATH_WWW = '/test_task/online_store';
+const PATH_WWW = '/web';
 
 $arrPath = explode('/', strtolower($_REQUEST['path']) );
 
