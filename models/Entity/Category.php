@@ -8,6 +8,7 @@
  */
 class Category
 {
+    const TABLE_NAME = 'category';
     // primary key, autoincrement
     private $id;
     /**
@@ -35,53 +36,18 @@ class Category
      */
     static public function CountRecord()
     {
-        $sql = 'select count(*) from category ';
-
-        $result = self::runSQL($sql);
-
-        $row = mysqli_fetch_assoc($result);
-
-        return $row[0];
+        return 'select count(*) from ' . self::TABLE_NAME;
 
     }
     /**
-     * выполнение запроса к БД через интерфейс mysqli
-     * @param $sql
-     * @return bool|mysqli_result
-     */
-    static public function runSQL($sql)
-    {
-        self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
-        $result = mysqli_query( self::$conn, $sql );
 
-        return $result;
-    }
-
-    /**
-     * @return array|null
-     */
-    static public function getIDs()
-    {
-        $sql = "select key_category from category ";
-        $result = self::runSQL($sql);
-
-        $arrResult = [];
-
-        while( $row = mysqli_fetch_array($result))
-        {
-            $arrResult[] = $row[0];
-        }
-
-        return $arrResult;
-
-    }
     /**
      * получение всех записей таблицы
      * @return bool|mysqli_result
      */
     static public function SelectAll()
     {
-        return "select key_category as 'id', name from category ";
+        return "select key_category as 'id', name from  " . self::TABLE_NAME;
 
     }
     /**
@@ -90,7 +56,7 @@ class Category
      */
     static public function SelectParent()
     {
-        return "select key_category as 'id', name from category where key_parent = 0 order by name";
+        return "select key_category as 'id', name from " . self::TABLE_NAME . " where key_parent = 0 order by name";
 
     }
     /**
@@ -100,7 +66,7 @@ class Category
      */
     public function fromID($id)
     {
-        return "select key_category as 'id', name from category where key_category = '$id'";
+        return "select key_category as 'id', name from " . self::TABLE_NAME . " where key_category = '$id'";
     }
 
     /**
@@ -110,7 +76,25 @@ class Category
      */
     public function fromName($name)
     {
-        return "select * from category where name = $name";
+        return "select * from " . self::TABLE_NAME . " where name = $name";
+    }
+
+    /**
+     * получение одной записи таблицы по ее полю $name
+     * @param $name string
+     * @return bool|mysqli_result
+     */
+    public function fromParent($parameters)
+    {
+        $where = $separator = '';
+        foreach ($parameters as $key => $value) {
+
+            $where .= "$separator $key = '$value'";
+
+            $separator = ' AND ';
+
+        }
+        return "select * from " . self::TABLE_NAME . " where $where";
     }
 
     /**
@@ -121,7 +105,7 @@ class Category
      */
     public function fromBy(array $arrSearch)
     {
-        $sql = 'select * from category where ';
+        $sql = 'select * from " . self::TABLE_NAME . " where ';
         $separator = '';
 
         foreach ($arrSearch as $key => $value) {

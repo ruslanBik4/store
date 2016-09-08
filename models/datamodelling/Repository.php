@@ -30,9 +30,8 @@ class repository implements Iterator, ArrayAccess
     public function __construct($name)
     {
         $this->name = $name;
-        $this->countRecords = mysqli_fetch_array( $this->runSQL( "select count(*) from $name " ) )[0];
+        $this->countRecords = mysqli_fetch_array( $this->getRecords( 'CountRecord') )[0];
 
-        $this->arrIDs = $name::getIDs();
     }
 
     /**
@@ -92,9 +91,9 @@ class repository implements Iterator, ArrayAccess
 
         return $text;
     }
-    public function runCommand($command)
+    public function runCommand($command, array $parameters = null )
     {
-        $this->tableRes = $this->getRecords($command);
+        $this->tableRes = $this->getRecords($command, $parameters);
     }
 
     /**
@@ -103,10 +102,19 @@ class repository implements Iterator, ArrayAccess
      * @param $method
      * @return bool|mysqli_result
      */
-    private function getRecords($method)
+    private function getRecords($method, array $parameters = null )
     {
         $name = $this->name;
-        return $this->runSQL( $name::$method() );
+        if ($parameters === null ) {
+
+            return $this->runSQL( $name::$method() );
+
+        } else {
+            $parameters[0] = 0;
+            return $this->runSQL( $name::$method($parameters) );
+        }
+
+
     }
 
     private function runSQL($sql)

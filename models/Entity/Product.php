@@ -8,6 +8,8 @@
  */
 class Product
 {
+    const TABLE_NAME = 'product';
+
     private $name;
     private $price;
     private $parentID;
@@ -18,21 +20,21 @@ class Product
 
     static public function SelectAction()
     {
-        return 'select * from products where action = 1';
+        return 'select * from " . self::TABLE_NAME . " where action = 1';
     }
     static public function SelectNew()
     {
-        return 'select * from products where new = 1 ';
+        return 'select * from " . self::TABLE_NAME . " where new = 1 ';
 
     }
     static public function SelectAll()
     {
-        return 'select * from products ';
+        return 'select * from ' . self::TABLE_NAME;
     }
 
     static public function fromId($id)
     {
-        return "select * from products where id = $id";
+        return "select * from " . self::TABLE_NAME . " where id = $id";
     }
 
 }

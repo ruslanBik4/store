@@ -23,8 +23,8 @@ class categoryController
         switch ($arrCommand[0]) {
             case 'child':
                 if ($arrCommands[1]) {
-                    $arr = $arrCommands[1];
-                    $this->repository->runCommand('fromParent');
+                    $arrParam = explode('=', $arrCommands[1] );
+                    $this->repository->runCommand('fromParent', [$arrParam[0] => $arrParam[1] ] );
 
                 } else {
                     $this->repository->SelectAll();
