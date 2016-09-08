@@ -84,7 +84,7 @@ class Category
      * @param $name string
      * @return bool|mysqli_result
      */
-    public function fromParent($parameters)
+    static public function fromParent($parameters)
     {
         $where = $separator = '';
         foreach ($parameters as $key => $value) {
@@ -103,7 +103,7 @@ class Category
      * @param array $arrSearch
      * @return bool|mysqli_result
      */
-    public function fromBy(array $arrSearch)
+    static public function fromBy(array $arrSearch)
     {
         $sql = 'select * from " . self::TABLE_NAME . " where ';
         $separator = '';

@@ -20,13 +20,13 @@ class categoryView
     {
         switch ($this->viewType) {
             case 'view':
-                return "<div><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a></div>";
+                return "<div><a href='/category/id=$key'> {$value['name']} </a></div>";
             case 'v_menu':
-                return "<li><a href='http://allservice.in.ua/test_task/online_store/category/id=$key'> {$value['name']} </a> </li>";
+                return "<li><a href='/category/id=$key'> {$value['name']} </a> </li>";
             case 'id':
                 return "<div> {$value['name']} </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
             case 'parent':
-                return "<div> <a href='http://allservice.in.ua/test_task/online_store/category/child=view&parentId=$key'>  {$value['name']} </a> </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
+                return "<div> <a href='/category/child=view&parentId=$key'>  {$value['name']} </a> </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
             default:
                 return "<div> Неопредел вівод данніх </div>";
         }

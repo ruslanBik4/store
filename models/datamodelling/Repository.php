@@ -110,7 +110,6 @@ class repository implements Iterator, ArrayAccess
             return $this->runSQL( $name::$method() );
 
         } else {
-            $parameters[0] = 0;
             return $this->runSQL( $name::$method($parameters) );
         }
 
