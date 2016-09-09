@@ -17,16 +17,14 @@ class categoryController
     {
         $this->repository = new Repository('Category');
 
-        $arrCommands = explode('?', $command );
+        $arrCommands = explode('&', $command );
         $arrCommand = explode('=', $arrCommands[0] );
 
         switch ($arrCommand[0]) {
             case 'child':
                 $this->responce   = '';
-                if ($arrCommands[1]) {
-                    $arrParam = explode('=', $arrCommands[1] );
-                    $this->responce   = '<div>' .$command.  $arrParam[0] . ' => ' . $arrParam[1] . '</div>';
-                    $this->repository->runCommand('fromParent', [$arrParam[0] => $arrParam[1] ] );
+                if ($_REQUEST['parentId']) {
+                    $this->repository->runCommand('fromParent', ['key_parent' => $_REQUEST['parentId'] ] );
 
                 } else {
                     $this->repository->SelectAll();

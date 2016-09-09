@@ -120,6 +120,9 @@ class repository implements Iterator, ArrayAccess
     {
         self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
         $result = mysqli_query( self::$conn, $sql );
+        if (!$result) {
+            throw new Exception('Error during execute SQL - ' . $sql . ', error - ' . mysqli_error(self::$conn) );
+        }
 
         return $result;
     }

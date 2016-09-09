@@ -20,7 +20,7 @@ class categoryView
     {
         switch ($this->viewType) {
             case 'view':
-                return "<div><a href='/category/id=$key'> {$value['name']} </a></div>";
+                return "<div><a href='/category/child=view&parentId=$key'> {$value['name']} </a></div>";
             case 'v_menu':
                 return "<li><a href='/category/id=$key'> {$value['name']} </a> </li>";
             case 'id':

@@ -6,6 +6,14 @@ const PATH_WWW = '/web';
 $arrPath = explode('/', strtolower($_REQUEST['path']) );
 
 switch ($arrPath[0]) {
+    case 'main':
+        include '../views/pages/main/head.html';
+        include '../views/pages/main/header.html';
+        include '../views/pages/main/content.html';
+        include '../views/pages/main/footer.html';
+
+        exit(0);
+        break;
     case 'admin':                    // ссылки вида {имя_сайта}/admin/*
         switch ($arrPath[1])  {
             case 'singin':              // ссылки вида {имя_сайта}/admin/singin/ (*)
@@ -116,6 +124,4 @@ join orderdetails OD using(orderNumber) join products p using(productCode) join 
 
 
 }
-include '../views/pages/main/header.html';
 include '../views/pages/main/content.html';
-include '../views/pages/main/footer.html';

@@ -15,16 +15,23 @@ class Product
     private $parentID;
     private $action = false;
     private $new = false;
-//* @property mysqli conn
-    static private $conn = null;
 
+    /**
+     * Определяем число записей в таблице
+     * @return integer
+     */
+    static public function CountRecord()
+    {
+        return 'select count(*) from ' . self::TABLE_NAME;
+
+    }
     static public function SelectAction()
     {
-        return 'select * from " . self::TABLE_NAME . " where action = 1';
+        return 'select * from ' . self::TABLE_NAME . ' where action = 1';
     }
     static public function SelectNew()
     {
-        return 'select * from " . self::TABLE_NAME . " where new = 1 ';
+        return 'select * from ' . self::TABLE_NAME . ' where new = 1 ';
 
     }
     static public function SelectAll()

@@ -56,7 +56,7 @@ class Category
      */
     static public function SelectParent()
     {
-        return "select key_category as 'id', name from " . self::TABLE_NAME . " where key_parent = 0 order by name";
+        return "select key_category as 'id', name from " . Category::TABLE_NAME . " where key_parent = 0 order by name";
 
     }
     /**
@@ -64,7 +64,7 @@ class Category
      * @param $id integer
      * @return bool|mysqli_result
      */
-    public function fromID($id)
+    static public function fromID($id)
     {
         return "select key_category as 'id', name from " . self::TABLE_NAME . " where key_category = '$id'";
     }
