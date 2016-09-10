@@ -3,7 +3,9 @@
 require_once '../autoload.php';
 const PATH_WWW = '/web';
 
-$arrPath = explode('/', strtolower($_REQUEST['path']) );
+$arrPath = explode('/', strtolower($_SERVER['REQUEST_URI']) );
+
+array_shift($arrPath);
 
 switch ($arrPath[0]) {
     case 'main':
