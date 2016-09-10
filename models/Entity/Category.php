@@ -21,7 +21,6 @@ class Category
     // integer, link by primary key parent category
     private $parentId;
     // handle соединения с БД
-    static private $conn;
 
     public function __construct($name, $parentId = 0)
     {

@@ -38,7 +38,7 @@ class Customers
 
     /**
      * Определяем число записей в таблице
-     * @return integer
+     * @return string
      */
     static public function CountRecord()
     {
@@ -49,7 +49,7 @@ class Customers
 
     /**
      * получение всех записей таблицы
-     * @return bool|mysqli_result
+     * @return string
      */
     static public function SelectAll()
     {

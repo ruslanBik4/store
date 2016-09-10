@@ -25,15 +25,30 @@ class Product
         return 'select count(*) from ' . self::TABLE_NAME;
 
     }
+
+    /**
+     * получить списком акционные товары
+     * @return string
+     */
     static public function SelectAction()
     {
         return 'select * from ' . self::TABLE_NAME . ' where action = 1';
     }
+
+    /**
+     * получить списком товары - новинки
+     * @return string
+     */
     static public function SelectNew()
     {
         return 'select * from ' . self::TABLE_NAME . ' where new = 1 ';
 
     }
+
+    /**
+     * получение всех записей
+     * @return string
+     */
     static public function SelectAll()
     {
         return 'select * from ' . self::TABLE_NAME;

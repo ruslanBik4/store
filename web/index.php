@@ -80,6 +80,13 @@ switch ($arrPath[0]) {
 
                 break;
 
+            case 'customers':// ссылки вида {имя_сайта}/product/{$command}
+
+                $controller = new customersController($arrPath[1]);
+                $content = $controller->getResponce();
+
+                break;
+
             case 'offices':
 
                 $queryBuilder = new queryBuilder();
