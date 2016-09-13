@@ -7,15 +7,12 @@
  * Time: 19:18
  * @property Repository repository
  */
-class categoryController
+class categoryController extends AbstractEntityManageController
 {
-    private $responce;
-    private $repository;
-
 
     public function __construct($command)
     {
-        $this->repository = new Repository('Category');
+        parent::__construct('Category');
 
         $arrCommands = explode('&', $command );
         $arrCommand = explode('=', $arrCommands[0] );
@@ -66,10 +63,5 @@ class categoryController
                 }
                 break;
         }
-    }
-
-    public function getResponce()
-    {
-        return $this->responce;
     }
 }

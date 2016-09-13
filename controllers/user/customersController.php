@@ -6,15 +6,12 @@
  * Date: 10.09.16
  * Time: 10:56
  */
-class customersController
+class customersController extends AbstractEntityManageController
 {
-    private $responce;
-    private $repository;
-
-
     public function __construct($command)
     {
-        $this->repository = new Repository('Customers');
+        parent::__construct('Customers');
+
         $this->repository->SelectAll();
 
         $this->responce   = '';
@@ -32,11 +29,6 @@ class customersController
 
         }
 
-    }
-
-    public function getResponce()
-    {
-        return $this->responce;
     }
 
 }

@@ -7,7 +7,7 @@ Options All -ExecCGI  +Includes -Indexes +FollowSymLinks
 	#	и запрошенный путь соответствует пути к физическому файлу
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule (.*) web/index.php?path=$1  [L]
+	RewriteRule (.*) web/index.php  [L]
 
     #RewriteCond %{REQUEST_FILENAME}      ^$
 	#RewriteRule .* web/index.php  [L]

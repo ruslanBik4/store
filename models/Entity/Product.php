@@ -6,7 +6,7 @@
  * Date: 18.08.16
  * Time: 19:57
  */
-class Product
+class Product extends Table
 {
     const TABLE_NAME = 'product';
 
@@ -15,6 +15,7 @@ class Product
     private $parentID;
     private $action = false;
     private $new = false;
+    static protected $where = '';
 
     /**
      * Определяем число записей в таблице
@@ -32,7 +33,7 @@ class Product
      */
     static public function SelectAction()
     {
-        return 'select * from ' . self::TABLE_NAME . ' where action = 1';
+        return parent::getSQLTemplate() . ' where action = 1';
     }
 
     /**
@@ -41,7 +42,8 @@ class Product
      */
     static public function SelectNew()
     {
-        return 'select * from ' . self::TABLE_NAME . ' where new = 1 ';
+        self::$where = ' where new = 1 ';
+        return parent::getSQLTemplate();
 
     }
 
@@ -51,12 +53,12 @@ class Product
      */
     static public function SelectAll()
     {
-        return 'select * from ' . self::TABLE_NAME;
+        return parent::getSQLTemplate();
     }
 
     static public function fromId($id)
     {
-        return "select * from " . self::TABLE_NAME . " where id = $id";
+        return parent::getSQLTemplate() . " where id = $id";
     }
 
 }

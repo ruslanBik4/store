@@ -6,15 +6,11 @@
  * Date: 18.08.16
  * Time: 19:55
  */
-class productController
+class productController extends AbstractEntityManageController
 {
-    private $responce;
-    private $repository;
-
-
     public function __construct($command)
     {
-        $this->repository = new Repository('Product');
+        parent::__construct('Product');
         $arrCommand = explode('=', $command );
         $command = $arrCommand[0];
 
@@ -38,17 +34,8 @@ class productController
                 break;
         }
 
-        $this->responce   = '';
-        $view = new productView($command);
-        foreach($this->repository as $key => $value ) {
-            $this->responce  .= $view->Render($key, $value);
-        }
+        $this->RenderAll(new productView($command));
 
-    }
-
-    public function getResponce()
-    {
-        return $this->responce;
     }
 
 }
