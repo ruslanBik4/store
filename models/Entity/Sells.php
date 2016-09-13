@@ -8,7 +8,6 @@
  */
 class Sells implements iRepositable
 {
-
     static public function CountRecord()
     {
         // TODO: Implement CountRecord() method.

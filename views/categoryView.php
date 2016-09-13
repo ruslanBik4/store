@@ -22,7 +22,7 @@ class categoryView
             case 'view':
                 return "<div><a href='/category/child=view&parentId=$key'> {$value['name']} </a></div>";
             case 'v_menu':
-                return "<li><a href='/category/id=$key'> {$value['name']} </a> </li>";
+                return "<li><a href='/category/child=view&parentId=$key'> {$value['name']} </a> </li>";
             case 'id':
                 return "<div> {$value['name']} </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
             case 'parent':

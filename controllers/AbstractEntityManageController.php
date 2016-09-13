@@ -6,7 +6,7 @@
  * Date: 10.09.16
  * Time: 13:22
  */
-class AbstractEntityManageController
+abstract class AbstractEntityManageController
 {
     protected $responce;
     protected $repository;

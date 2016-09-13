@@ -6,7 +6,7 @@
  * Date: 10.08.16
  * Time: 19:43
  */
-class Category
+class Category extends Table
 {
     const TABLE_NAME = 'category';
     // primary key, autoincrement
@@ -21,6 +21,8 @@ class Category
     // integer, link by primary key parent category
     private $parentId;
     // handle соединения с БД
+    static protected $where = '';
+    static protected $orderBy = 'order by name';
 
     public function __construct($name, $parentId = 0)
     {
@@ -35,7 +37,7 @@ class Category
      */
     static public function CountRecord()
     {
-        return 'select count(*) from ' . self::TABLE_NAME;
+        return parent::getSQLCountRecord();
 
     }
     /**
@@ -75,7 +77,9 @@ class Category
      */
     public function fromName($name)
     {
-        return "select * from " . self::TABLE_NAME . " where name = $name";
+        self::$where = ' where name = $name ';
+
+        return  parent::getSQLTemplate();
     }
 
     /**
@@ -93,7 +97,9 @@ class Category
             $separator = ' AND ';
 
         }
-        return "select * from " . self::TABLE_NAME . " where $where";
+        self::$where = ' where $where ';
+
+        return parent::getSQLTemplate();
     }
 
     /**
@@ -104,7 +110,7 @@ class Category
      */
     static public function fromBy(array $arrSearch)
     {
-        $sql = 'select * from " . self::TABLE_NAME . " where ';
+        $where = ' where ';
         $separator = '';
 
         foreach ($arrSearch as $key => $value) {
@@ -112,16 +118,17 @@ class Category
                 foreach ($value as $key => $arrow) {
                     switch ($key) {
                         case 'ot':
-                            $sql .= "$separator $key < $value";
+                            $where .= "$separator $key < $value";
                     }
                 }
             }
             else
-                $sql .= "$separator $key = $value";
+                $where .= "$separator $key = $value";
             $separator = ' AND ';
         }
+        self::$where = ' where $where ';
 
-        return $sql;
+        return parent::getSQLTemplate();
     }
 
     /**

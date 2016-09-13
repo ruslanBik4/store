@@ -16,6 +16,7 @@ class Product extends Table
     private $action = false;
     private $new = false;
     static protected $where = '';
+    static protected $orderBy = 'order by name';
 
     /**
      * Определяем число записей в таблице
@@ -23,7 +24,7 @@ class Product extends Table
      */
     static public function CountRecord()
     {
-        return 'select count(*) from ' . self::TABLE_NAME;
+        return parent::getSQLCountRecord();
 
     }
 
@@ -33,7 +34,8 @@ class Product extends Table
      */
     static public function SelectAction()
     {
-        return parent::getSQLTemplate() . ' where action = 1';
+        self::$where = ' where action = 1 ';
+        return parent::getSQLTemplate();
     }
 
     /**
@@ -58,7 +60,8 @@ class Product extends Table
 
     static public function fromId($id)
     {
-        return parent::getSQLTemplate() . " where id = $id";
+        self::$where = ' where id = $id';
+        return parent::getSQLTemplate();
     }
 
 }

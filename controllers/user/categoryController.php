@@ -27,11 +27,8 @@ class categoryController extends AbstractEntityManageController
                     $this->repository->SelectAll();
 
                 }
-                $view = new categoryView($arrCommand[1]);
+                $this->RenderAll(new categoryView($arrCommand[1]));
 
-                foreach($this->repository as $key => $value ) {
-                        $this->responce .= $view->Render($key, $value);
-                }
                 break;
             case 'id':
 
@@ -55,12 +52,7 @@ class categoryController extends AbstractEntityManageController
             case 'parent':
             default:
                 $this->repository->runCommand('SelectParent');
-                $this->responce   = '';
-                $view = new categoryView('parent');
-
-                foreach($this->repository as $key => $value ) {
-                    $this->responce .= $view->Render($key, $value);
-                }
+                $this->RenderAll(new categoryView('parent'));
                 break;
         }
     }

@@ -9,7 +9,4 @@ Options All -ExecCGI  +Includes -Indexes +FollowSymLinks
     RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule (.*) web/index.php  [L]
 
-    #RewriteCond %{REQUEST_FILENAME}      ^$
-	#RewriteRule .* web/index.php  [L]
-
 </IfModule>
