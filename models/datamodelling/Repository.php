@@ -118,6 +118,10 @@ class repository implements Iterator, ArrayAccess
 
     private function runSQL($sql)
     {
+         if (!$sql) {
+             throw new Exception('This empty SQL -  ' );
+
+         }
         self::$conn = mysqli_connect(dbconfig::HOST, dbconfig::LOGIN, dbconfig::PASSWORD, dbconfig::DATABASE);
         $result = mysqli_query( self::$conn, $sql );
         if (!$result) {
@@ -171,6 +175,7 @@ class repository implements Iterator, ArrayAccess
     {
         // TODO: Implement next() method.
         $this->row = mysqli_fetch_assoc($this->tableRes);
+        $this->recordNumber ++;
     }
 
     /**
@@ -182,7 +187,7 @@ class repository implements Iterator, ArrayAccess
     public function key()
     {
         // TODO: Implement key() method.
-        return $this->row['id'];
+        return this->recordNumber;
     }
 
     /**

@@ -5,12 +5,12 @@ $(function () {
 
     divCatalog.load('/category/', afterLoadCatalog);
 
-    divContent.load('/product/new/', function (data,status) {  if (status != 'success') alert(status)} );
+    divContent.load('/product/new/', afterLoadContent );
 
 
     $('header a:not(".fromCatalog"):not([onclick])').click( loadToContent );
     $('a.fromCatalog').click( loadToCatalog );
-    $('a.fromCatalog').hover( function() { if (this.style.color == 'red') this.style.color = 'black'; else this.style.color = 'red'; } );
+    $('a').hover( function() { if (this.style.color == 'red') this.style.color = 'black'; else this.style.color = 'red'; } );
     $('a.fromCatalog').blur( function() { this.style.color = 'black'} );
 })
 
@@ -23,16 +23,22 @@ function showForm(this_a) {
 }
 function afterLoadCatalog(data, status) {
     if (status == 'success')
-        $('a', this).click( loadToCatalog );
+        $('a', this).click( loadToCatalog ).hover( function() { if (this.style.color == 'red') this.style.color = 'black'; else this.style.color = 'red'; } );
 }
 
 function loadToCatalog() {
     divCatalog.load( this.href, afterLoadCatalog );
     return false;
 }
+function afterLoadContent(data, status) {
+    if (status == 'success')
+        $('a', this).click( loadToContent );
+    else
+        alert(status);
+}
 
 function loadToContent() {
-    divContent.load( this.href );
+    divContent.load( this.href, afterLoadContent );
     return false;
 }
 

@@ -10,22 +10,27 @@ abstract class AbstractEntityManageController
 {
     protected $responce;
     protected $repository;
+    protected $command;
 
-    public function __construct($entity)
+    public function __construct($command)
     {
-        $this->repository = new Repository($entity);
+        $this->command = $command;
+        $this->repository = new dbConnection($this->getSQL());
+//        Repository($entity);
     }
+    abstract protected function getSQL();
+    abstract protected function Render($key, $row);
 
     public function getResponce()
     {
         return $this->responce;
     }
 
-    protected function RenderAll($view)
+    protected function RenderAll()
     {
         $this->responce   = '';
-        foreach($this->repository as $key => $value ) {
-            $this->responce  .= $view->Render($key, $value);
+        foreach($this->repository as $key => $row ) {
+            $this->responce  .= $this->Render($key, $row);
         }
 
     }

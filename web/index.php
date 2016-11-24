@@ -3,15 +3,28 @@
 require_once '../autoload.php';
 const PATH_WWW = '/web';
 
-$arrPath = explode('/', strtolower($_SERVER['REQUEST_URI']) );
+$arrPath = explode('/', strtolower($_REQUEST['path']) );
 
-array_shift($arrPath);
+//array_shift($arrPath);
 
 switch ($arrPath[0]) {
+    case 'customers': // В  браузере .../web/index.php?path=customers/$command/
+        $controller = new customersController($arrPath[1]);
+        echo $controller->getResponce();
+        break;
+    case '':
+
     case 'main':
         include '../views/pages/main/head.html';
         include '../views/pages/main/header.html';
         include '../views/pages/main/content.html';
+
+//        $ch = curl_init('http://store.allservice.in.ua/customers/');
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT)
+//        $result = curl_exec($ch);
+
+
         include '../views/pages/main/footer.html';
 
         exit(0);
@@ -68,6 +81,12 @@ switch ($arrPath[0]) {
  break;
     default: // user controllers
         switch ($arrPath[0])  {
+            case 'image':
+                $result = file_get_contents('https://www.google.com.ua/logos/doodles/2016/jean-battens-107th-birthday-5170085972934656-hp.jpg');
+                echo($result);
+                header('image/jpg');
+                exit(0);
+
             case 'category':// ссылки вида {имя_сайта}/category/{$command}
 
                 $categoryController = new categoryController($arrPath[1]); // $command

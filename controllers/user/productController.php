@@ -8,7 +8,7 @@
  */
 class productController extends AbstractEntityManageController
 {
-    public function __construct($command)
+    public function __construct(array $command)
     {
         parent::__construct('Product');
         $arrCommand = explode('=', $command );

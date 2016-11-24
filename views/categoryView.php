@@ -26,7 +26,7 @@ class categoryView
             case 'id':
                 return "<div> {$value['name']} </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
             case 'parent':
-                return "<div> <a href='/category/child=view&parentId=$key'>  {$value['name']} </a> </div> <div> {$value['memo']} </div> <div> {$value['task']} </div>";
+                return "<div> <a href='/category/child=view&parentId=$key'>  {$value['name']} </a> </div> ";
             default:
                 return "<div> Неопредел вівод данніх </div>";
         }
